@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Chat</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="client.js"></script>
+
+  </head>
+  <body>
+
+    <div class="snakeContainer" style="display:block;margin:auto;">
+      <script src="./simplesnake.js"></script>
+      <button id="resetButton" type="button" name="Reset" style="display:none;"></button>
+    </div>
+
+    <div class="container" style="width: 60%; margin: auto; display:inline-block;">
+      <header>
+        <h1>Snake + Chat</h1>
+      </header>
+      <input type="text" id="pseudoInput">
+      <button id="pseudoSet">Set Pseudo</button>
+      <div id="chatEntries"></div>
+      <div id="chatControls">
+        <input type="text" id="messageInput">
+        <button id="submit">Send</button>
+      </div>
+    </div>
+  </body>
+</html>
