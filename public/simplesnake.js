@@ -69,6 +69,67 @@ window.onload = function() {
     }
   }
 
+  function drawSnakeEyes (snakeHead) {
+    x = snakeHead.x;
+    y = snakeHead.y;
+
+    if ( direction === 'right' ) {
+      ctx.strokeStyle = 'yellow';
+      ctx.strokeRect(x*10 + 7, y*10 + 23, 1, 1);
+      ctx.fillStyle = '#b3b300';
+      ctx.fillRect(x*10 + 7, y*10 + 23, 1, 1);
+    } else if ( direction === 'left' ) {
+      ctx.strokeStyle = 'yellow';
+      ctx.strokeRect(x*10 + 1, y*10 + 23, 1, 1);
+      ctx.fillStyle = '#b3b300';
+      ctx.fillRect(x*10 + 1, y*10 + 23, 1, 1);
+    } else if ( direction === 'up' ) {
+      ctx.strokeStyle = 'yellow';
+      ctx.strokeRect(x*10 + 2, y*10 + 21, 1, 1);
+      ctx.strokeRect(x*10 + 6, y*10 + 21, 1, 1);
+      ctx.fillStyle = '#b3b300';
+      ctx.fillRect(x*10 + 2, y*10 + 21, 1, 1);
+      ctx.fillRect(x*10 + 6, y*10 + 21, 1, 1);
+
+    } else {
+      ctx.strokeStyle = 'yellow';
+      ctx.strokeRect(x*10 + 2, y*10 + 28, 1, 1);
+      ctx.strokeRect(x*10 + 6, y*10 + 28, 1, 1);
+      ctx.fillStyle = '#b3b300';
+      ctx.fillRect(x*10 + 2, y*10 + 28, 1, 1);
+      ctx.fillRect(x*10 + 6, y*10 + 28, 1, 1);
+    }
+  }
+
+  function drawGameObjects(map) {
+    for (var x = 0; x < map.length; x++) {
+      for (var y = 0; y < map[0].length; y++) {
+        if (map[x][y] === 1) {
+
+          var radgrad = ctx.createRadialGradient(10*x + 3, 10*y + 23, 1, 10*x + 5, 10*y + 25, 5);
+            radgrad.addColorStop(0, '#FFFFFF');
+            radgrad.addColorStop(0.9, 'red');
+            radgrad.addColorStop(1, 'rgba(1, 159, 98, 0)');
+
+          ctx.strokeStyle = 'darkred';
+
+          ctx.beginPath();
+          ctx.arc(10*x + 5, 10*y + 25 , 5, 0, 2 * Math.PI);
+          ctx.stroke();
+          ctx.fillStyle = radgrad
+          ctx.fill();
+        }
+        else if (map[x][y] === 2) {
+          ctx.strokeStyle = 'darkgreen';
+          ctx.strokeRect(x*10, y*10 + 20, 10, 10);
+          ctx.fillStyle = 'green';
+          ctx.fillRect(x*10, y*10 + 20, 10, 10);
+        }
+      }
+    }
+  }
+
+
   function drawGame() {
 
     ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -112,43 +173,10 @@ window.onload = function() {
         }
     }
 
-
-    drawSnakeEyes (snakeHead) {
-      x = snakeHead.x;
-      y = snakeHead.y;
-      
-      if ( direction === 'right' ) {
-
-      }
-    }
-
     drawMain();
+    drawGameObjects(map);
+    drawSnakeEyes(snake[0]);
 
-    for (var x = 0; x < map.length; x++) {
-      for (var y = 0; y < map[0].length; y++) {
-        if (map[x][y] === 1) {
-
-          var radgrad = ctx.createRadialGradient(10*x + 3, 10*y + 23, 1, 10*x + 5, 10*y + 25, 5);
-            radgrad.addColorStop(0, '#FFFFFF');
-            radgrad.addColorStop(0.9, 'red');
-            radgrad.addColorStop(1, 'rgba(1, 159, 98, 0)');
-
-          ctx.strokeStyle = 'darkred';
-
-          ctx.beginPath();
-          ctx.arc(10*x + 5, 10*y + 25 , 5, 0, 2 * Math.PI);
-          ctx.stroke();
-          ctx.fillStyle = radgrad
-          ctx.fill();
-        }
-        else if (map[x][y] === 2) {
-          ctx.strokeStyle = 'darkgreen';
-          ctx.strokeRect(x*10, y*10 + 20, 10, 10);
-          ctx.fillStyle = 'green';
-          ctx.fillRect(x*10, y*10 + 20, 10, 10);
-        }
-      }
-    }
     if (active) {
       setTimeout(drawGame, speed - score);
     }
